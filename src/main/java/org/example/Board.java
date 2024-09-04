@@ -25,6 +25,8 @@ public class Board {
     public Board(BoardSettings settings)
     {
         this.boardSettings = settings;
+        initialiseBoard();
+        addMines();
     }
 
 
