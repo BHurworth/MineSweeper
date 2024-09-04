@@ -17,16 +17,15 @@ public class BoardOperations {
     public boolean removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         BoardPiece removedPiece = board.get(x).get(y);
-        System.out.println("TEST " + revealedCellCount[0]);
+
         if(removedPiece.type == "null")
         {
-            System.out.println("WAS NULL");
-            removedPiece.visible = true;
+            System.out.println("WAS NULL");;
             Reveal(x,y, board, revealedCellCount);
             visitedNodes.clear();
         }
 
-        else if(removedPiece.type == "Mine" && revealedCellCount[0] >0)
+        else if(removedPiece.type == "Mine" && revealedCellCount[0]>0)
         {
             removedPiece.visible = true;
             RevealAllBombs(board);
@@ -35,8 +34,9 @@ public class BoardOperations {
             //System.exit(0);
         }
 
-        else if(removedPiece.type == "Mine" && revealedCellCount[0] ==0)
+        else if(removedPiece.type == "Mine" && revealedCellCount[0]==0)
         {
+            revealedCellCount[0]++;
             EmptyPiece empty = new EmptyPiece();
             empty.visible = true;
             board.get(x).set(y, empty);
@@ -44,10 +44,17 @@ public class BoardOperations {
 
         else
         {
-            removedPiece.visible = true;
+            if(removedPiece.visible != true)
+            {
+                revealedCellCount[0]++;
+                removedPiece.visible = true;
+            }
             System.out.println("WAS NUMBER");
         }
-        revealedCellCount[0]++;
+
+        numberOfRevealedBlocks++;
+        System.out.println("TEST " + revealedCellCount[0]);
+        System.out.println("TEST2 " + numberOfRevealedBlocks);
         return false;
         //displayBoard();
     }
@@ -71,14 +78,22 @@ public class BoardOperations {
 
         if(currentPiece != null && currentPiece.type != "null")
         {
-            currentPiece.visible = true;
-            revealedCellCount[0]++;
+            if(currentPiece.visible != true)
+            {
+                currentPiece.visible = true;
+                revealedCellCount[0]++;
+            }
+
             return;
         }
 
         else
         {
-            currentPiece.visible = true;
+            if(currentPiece.visible!= true)
+            {
+                currentPiece.visible = true;
+                revealedCellCount[0]++;
+            }
             for(int[] direction : eightDirections)
             {
                 int positionToCheckX = x + direction[0];
