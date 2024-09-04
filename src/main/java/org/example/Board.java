@@ -15,16 +15,16 @@ public class Board {
     public Board()
     {
     }
-    
+
     public Board(BoardSettings settings)
     {
         this.boardSettings = settings;
         initialiseBoard();
         addMines();
-        CalculateNumbers();
+        addNumbers();
     }
 
-    public void CalculateNumbers()
+    public void addNumbers()
     {
         for(int i =1; i<boardSettings.boardHeight+1; i++)
         {
@@ -54,22 +54,6 @@ public class Board {
             }
         }
     }
-
-//    public void startNewGame()
-//    {
-//        startTime = Instant.now();
-//        initialiseBoard();
-//        addMines();
-//        TestBoardDisplay();
-//        CalculateNumbers();
-//        TestBoardDisplay();
-//        displayBoard();
-//
-//        while(playing)
-//        {
-//            Menu();
-//        }
-//    }
 
     public void initialiseBoard()
     {
