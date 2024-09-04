@@ -14,19 +14,19 @@ public class BoardOperations {
         this.boardSettings = settings;
     }
 
-    public boolean removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board)
+    public boolean removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         BoardPiece removedPiece = board.get(x).get(y);
-
+        System.out.println("TEST " + revealedCellCount[0]);
         if(removedPiece.type == "null")
         {
             System.out.println("WAS NULL");
             removedPiece.visible = true;
-            Reveal(x,y, board);
+            Reveal(x,y, board, revealedCellCount);
             visitedNodes.clear();
         }
 
-        else if(removedPiece.type == "Mine" && numberOfRevealedBlocks >0)
+        else if(removedPiece.type == "Mine" && revealedCellCount[0] >0)
         {
             removedPiece.visible = true;
             RevealAllBombs(board);
@@ -35,7 +35,7 @@ public class BoardOperations {
             //System.exit(0);
         }
 
-        else if(removedPiece.type == "Mine" && numberOfRevealedBlocks ==0)
+        else if(removedPiece.type == "Mine" && revealedCellCount[0] ==0)
         {
             EmptyPiece empty = new EmptyPiece();
             empty.visible = true;
@@ -47,12 +47,12 @@ public class BoardOperations {
             removedPiece.visible = true;
             System.out.println("WAS NUMBER");
         }
-        numberOfRevealedBlocks++;
+        revealedCellCount[0]++;
         return false;
         //displayBoard();
     }
 
-    public void Reveal(int x, int y, ArrayList<ArrayList<BoardPiece>> board)
+    public void Reveal(int x, int y, ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         ArrayList<Integer> currentNode = new ArrayList<Integer>();
         currentNode.add(x);
@@ -72,6 +72,7 @@ public class BoardOperations {
         if(currentPiece != null && currentPiece.type != "null")
         {
             currentPiece.visible = true;
+            revealedCellCount[0]++;
             return;
         }
 
@@ -82,7 +83,7 @@ public class BoardOperations {
             {
                 int positionToCheckX = x + direction[0];
                 int positionToCheckY = y+direction[1];
-                Reveal(positionToCheckX, positionToCheckY, board);
+                Reveal(positionToCheckX, positionToCheckY, board, revealedCellCount);
             }
         }
     }
@@ -102,10 +103,10 @@ public class BoardOperations {
         }
     }
 
-    public boolean RemoveASquare(ArrayList<ArrayList<BoardPiece>> board)
+    public boolean RemoveASquare(ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         int[] input = ReceiveInput();
-       return removePiece(input[0],input[1], board);
+       return removePiece(input[0],input[1], board, revealedCellCount);
     }
 
     public int[] ReceiveInput()

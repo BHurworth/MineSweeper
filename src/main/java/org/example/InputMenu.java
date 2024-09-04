@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class InputMenu {
     BoardOperations boardOperations;
 
-    public boolean PlayerInputMenu(Board board)
+    public boolean PlayerInputMenu(Board board, int[] revealedCellCount)
     {
         if(boardOperations == null)
         {
@@ -14,7 +14,7 @@ public class InputMenu {
         }
         board.displayBoard();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nEnter an input: " + "\n1. To reveal a square" + "\n2. To flag a block" + "\n3. Remove flag from a block" + "\n4. To Quit the game");
+        System.out.println("\n\n\nEnter an input: " + "\n1. To reveal a square" + "\n2. To flag a block" + "\n3. Remove flag from a block" + "\n4. To Quit the game");
         while(!scanner.hasNextInt())
         {
             scanner.next();
@@ -26,7 +26,7 @@ public class InputMenu {
         switch(choice)
         {
             case 1:
-                gameOver = boardOperations.RemoveASquare(board.board);
+                gameOver = boardOperations.RemoveASquare(board.board, revealedCellCount);
                 break;
             case 2:
                 boardOperations.FlagNewSquare(true, board.board);
@@ -46,7 +46,7 @@ public class InputMenu {
     public static BoardSettings BoardSettingsInputMenu()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a difficulty" + "\n1. Easy" + "\n2. Intermediate" + "\n3. Custom");
+        System.out.println("\n\n\nEnter a difficulty" + "\n1. Easy" + "\n2. Intermediate" + "\n3. Custom");
 
         while(!scanner.hasNextInt())
         {
@@ -71,7 +71,6 @@ public class InputMenu {
                 boardSettings = new BoardSettings();
                 break;
         }
-
         return boardSettings;
     }
 }
