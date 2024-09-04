@@ -61,9 +61,10 @@ public class InputMenu {
             case(2):
                 boardSettings = new BoardSettings(16,16,40);
                 break;
-//            case 3:
-//                getCustomDifficulty();
-//                break;
+            case 3:
+                boardSettings = new BoardSettings();
+                boardSettings = boardSettings.getCustomDifficulty();
+                break;
             default:
                 boardSettings = new BoardSettings();
                 break;
@@ -71,5 +72,10 @@ public class InputMenu {
 
         return boardSettings;
     }
+
+
+
+
+
 
 }

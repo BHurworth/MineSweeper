@@ -20,7 +20,7 @@ public class BoardSettings {
         this.numberOfMines = numberOfMines;
     }
 
-    public void getCustomDifficulty()
+    public BoardSettings getCustomDifficulty()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Board size");
@@ -28,14 +28,14 @@ public class BoardSettings {
         {
             scanner.next();
         }
-        boardWidth = scanner.nextInt();
-        boardHeight = boardWidth;
-
+        int boardWidth = scanner.nextInt();
         System.out.println("Enter number of mines");
         while(!scanner.hasNextInt())
         {
             scanner.next();
         }
-        numberOfMines = scanner.nextInt();
+        int numberOfMines = scanner.nextInt();
+
+        return new BoardSettings(boardWidth, boardWidth, numberOfMines);
     }
 }
