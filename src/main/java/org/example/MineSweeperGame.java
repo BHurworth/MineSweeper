@@ -8,22 +8,27 @@ public class MineSweeperGame {
     public void StartNewGame(){
         // initialise board settings
         // start game
-        BoardSettings boardSettings;
-        boardSettings = InputMenu.BoardSettingsInputMenu();
-        Board board = new Board(boardSettings);
+        InitialiseBoard();
 
         InputMenu inputMenu = new InputMenu();
-        boolean gameOver;
+        boolean gameOver = false;
 
         while(true)
         {
             gameOver = inputMenu.PlayerInputMenu(board);
             if(gameOver)
             {
-                StartNewGame();
-                break;
+                InitialiseBoard();
             }
         }
        // numberOfTimesPlayed++;
     }
+
+    public void InitialiseBoard()
+    {
+        BoardSettings boardSettings;
+        boardSettings = InputMenu.BoardSettingsInputMenu();
+        board = new Board(boardSettings);
+    }
+
 }
