@@ -69,7 +69,7 @@ public class BoardOperations {
         if(currentPiece != null && currentPiece.type == "Mine")
             return;
 
-        if(currentPiece.type != "null")
+        if(currentPiece != null && currentPiece.type != "null")
         {
             currentPiece.visible = true;
             return;
