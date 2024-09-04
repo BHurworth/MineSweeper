@@ -113,11 +113,6 @@ public class Board {
                     currentPiece.displayPiece();
             }
         }
-
-        currentTime = Instant.now();
-
-        long timeElapsed = Duration.between(startTime, currentTime).toSeconds();
-        System.out.println("\n\n" +timeElapsed + " seconds elapsed");
     }
 
 
