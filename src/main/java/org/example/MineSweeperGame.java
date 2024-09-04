@@ -22,9 +22,9 @@ public class MineSweeperGame {
                 InitialiseBoardSettings();
             }
 
-            else if(revealedCellCount[0] > ((board.boardSettings.boardHeight)* board.boardSettings.boardWidth) - board.boardSettings.numberOfMines)
+            else if(revealedCellCount[0] >= ((board.boardSettings.boardHeight)* board.boardSettings.boardWidth) - board.boardSettings.numberOfMines)
             {
-                System.out.println("YOU WON!");
+                System.out.println("\n\n\nYOU WON!\n\n\n");
                 InitialiseBoardSettings();
             }
         }
