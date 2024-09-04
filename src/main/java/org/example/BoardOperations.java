@@ -9,20 +9,13 @@ public class BoardOperations {
     public BoardSettings boardSettings;
     int[][] eightDirections = new int[][]{{-1,1}, {-1,-1}, {-1,0},{1,0},{1,1}, {1,-1}, {0,1},{0,-1}};
 
-    public void removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board)
+    public BoardOperations(BoardSettings settings)
     {
-        //3 posibilities
-        /*
-            1. the piece is a mine
-                - Game over
+        this.boardSettings = settings;
+    }
 
-            2. the piece is a number
-                - reveal the piece
-
-            3. the piece is null
-                - reveal all adjacent null pieces recursively
-        */
-
+    public boolean removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board)
+    {
         BoardPiece removedPiece = board.get(x).get(y);
 
         if(removedPiece.type == "null")
@@ -36,9 +29,10 @@ public class BoardOperations {
         else if(removedPiece.type == "Mine" && numberOfRevealedBlocks >0)
         {
             removedPiece.visible = true;
-            RevealAllBombs();
+            RevealAllBombs(board);
             System.out.println("\nGame Over!");
-            System.exit(0);
+            return true;
+            //System.exit(0);
         }
 
         else if(removedPiece.type == "Mine" && numberOfRevealedBlocks ==0)
@@ -54,6 +48,7 @@ public class BoardOperations {
             System.out.println("WAS NUMBER");
         }
         numberOfRevealedBlocks++;
+        return false;
         //displayBoard();
     }
 
@@ -92,37 +87,6 @@ public class BoardOperations {
         }
     }
 
-    public void CalculateNumbers(ArrayList<ArrayList<BoardPiece>> board)
-    {
-        for(int i =1; i<boardSettings.boardHeight+1; i++)
-        {
-            System.out.println("\n");
-            for(int j =1; j<boardSettings.boardWidth+1; j++)
-            {
-                int count = 0;
-
-                for(int[] direction : eightDirections)
-                {
-                    int positionToCheckX = i + direction[0];
-                    int positionToCheckY = j+direction[1];
-                    if((positionToCheckX >= 0 && positionToCheckX < boardSettings.boardWidth) && (positionToCheckY < boardSettings.boardHeight && positionToCheckY >= 0) && board.get(positionToCheckX).get(positionToCheckY).type != "null")
-                    {
-                        BoardPiece currentPiece = board.get(positionToCheckX).get(positionToCheckY);
-                        if(currentPiece.type.equals("Mine"))
-                            count++;
-                    }
-                }
-
-                if(count > 0 && board.get(i).get(j).type == "null")
-                {
-                    Number number = new Number();
-                    number.type = "  " + Integer.toString(count) + " ";
-                    board.get(i).set(j, number);
-                }
-            }
-        }
-    }
-
     public void RevealAllBombs(ArrayList<ArrayList<BoardPiece>> board)
     {
         for(int i =0; i<boardSettings.boardHeight+1; i++)
@@ -138,10 +102,10 @@ public class BoardOperations {
         }
     }
 
-    public void RemoveASquare(ArrayList<ArrayList<BoardPiece>> board)
+    public boolean RemoveASquare(ArrayList<ArrayList<BoardPiece>> board)
     {
         int[] input = ReceiveInput();
-        removePiece(input[0],input[1], board);
+       return removePiece(input[0],input[1], board);
     }
 
     public int[] ReceiveInput()

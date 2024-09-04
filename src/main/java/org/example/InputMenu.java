@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class InputMenu {
     BoardOperations boardOperations;
-    public void PlayerInputMenu(Board board)
+
+    public boolean PlayerInputMenu(Board board)
     {
         if(boardOperations == null)
         {
@@ -21,11 +22,11 @@ public class InputMenu {
         int choice = scanner.nextInt();
 
        // return choice;
-
+        boolean gameOver = false;
         switch(choice)
         {
             case 1:
-                boardOperations.RemoveASquare(board.board);
+                gameOver = boardOperations.RemoveASquare(board.board);
                 break;
             case 2:
                 boardOperations.FlagNewSquare(true, board.board);
@@ -39,6 +40,7 @@ public class InputMenu {
         }
 
         board.displayBoard();
+        return gameOver;
     }
 
     public static BoardSettings BoardSettingsInputMenu()
@@ -72,10 +74,4 @@ public class InputMenu {
 
         return boardSettings;
     }
-
-
-
-
-
-
 }

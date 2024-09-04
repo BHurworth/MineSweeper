@@ -13,8 +13,17 @@ public class MineSweeperGame {
         Board board = new Board(boardSettings);
 
         InputMenu inputMenu = new InputMenu();
-        inputMenu.PlayerInputMenu(board);
+        boolean gameOver;
 
-        numberOfTimesPlayed++;
+        while(true)
+        {
+            gameOver = inputMenu.PlayerInputMenu(board);
+            if(gameOver)
+            {
+                StartNewGame();
+                break;
+            }
+        }
+       // numberOfTimesPlayed++;
     }
 }
