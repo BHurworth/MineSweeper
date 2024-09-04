@@ -9,26 +9,51 @@ import java.util.ArrayList;
 
 public class Board {
     ArrayList<ArrayList<BoardPiece>> board = new ArrayList<ArrayList<BoardPiece>>();
-    ArrayList<ArrayList<Integer>> visitedNodes = new ArrayList<ArrayList<Integer>>();
-    int numberOfRevealedBlocks = 0;
     int[][] eightDirections = new int[][]{{-1,1}, {-1,-1}, {-1,0},{1,0},{1,1}, {1,-1}, {0,1},{0,-1}};
-    boolean playing = true;
-    Instant startTime;
-    Instant currentTime;
     BoardSettings boardSettings = new BoardSettings();
 
     public Board()
     {
-
     }
-
+    
     public Board(BoardSettings settings)
     {
         this.boardSettings = settings;
         initialiseBoard();
         addMines();
+        CalculateNumbers();
     }
 
+    public void CalculateNumbers()
+    {
+        for(int i =1; i<boardSettings.boardHeight+1; i++)
+        {
+            System.out.println("\n");
+            for(int j =1; j<boardSettings.boardWidth+1; j++)
+            {
+                int count = 0;
+
+                for(int[] direction : eightDirections)
+                {
+                    int positionToCheckX = i + direction[0];
+                    int positionToCheckY = j+direction[1];
+                    if((positionToCheckX >= 0 && positionToCheckX < boardSettings.boardWidth) && (positionToCheckY < boardSettings.boardHeight && positionToCheckY >= 0) && board.get(positionToCheckX).get(positionToCheckY).type != "null")
+                    {
+                        BoardPiece currentPiece = board.get(positionToCheckX).get(positionToCheckY);
+                        if(currentPiece.type.equals("Mine"))
+                            count++;
+                    }
+                }
+
+                if(count > 0 && board.get(i).get(j).type == "null")
+                {
+                    Number number = new Number();
+                    number.type = "  " + Integer.toString(count) + " ";
+                    board.get(i).set(j, number);
+                }
+            }
+        }
+    }
 
 //    public void startNewGame()
 //    {
@@ -46,7 +71,6 @@ public class Board {
 //        }
 //    }
 
-   // loop 10 times and pick random position on board
     public void initialiseBoard()
     {
         board.clear();
@@ -83,8 +107,6 @@ public class Board {
         }
     }
 
-
-
     public void TestBoardDisplay()
     {
         for(int i =0; i<boardSettings.boardHeight+1; i++)
@@ -115,10 +137,6 @@ public class Board {
         }
     }
 
-
-
-
-
     public void addMines()
     {
         Random rand = new Random();
@@ -144,29 +162,4 @@ public class Board {
             }
         }
     }
-    // initialise board
-    // breadth first search first click
 }
-// Place flags
-// remove flags
-// initialise board
-
-// need to think about how to flag stuff. If you flag a piece, it should still stay the same. So the flag shouldnt really be a piece
-// instead, the pieces should have a property of "isFlagged", which when true will somehow display that it is flagged
-/*
-    Place bombs,
-    loop through board and calculate the numbers for each piece
- */
-// breadth first search first click
-
-// win and loss con
-// display outcome
-// restart game
-
-//difficulty based on number of bombs
-
-// Add Ability to add flag
-// Add square selection option
-// Add some kind of searching algorithm that keeps going until all numbers have been reached
-// if it is a bomb i guess it removes it?
-// (Check in all 8 directions, if it is null, reveal it, if it is a number stop the search. if it is a bomb, stop? I guess it wont ever be a bomb?)
