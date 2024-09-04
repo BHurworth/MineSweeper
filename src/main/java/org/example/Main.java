@@ -10,7 +10,6 @@ public class Main {
         minesweeper.StartNewGame();
     }
 }
-
 //lunchtime tomorrow
 
 
@@ -22,3 +21,6 @@ public class Main {
     - Abstraction/public interfaces/decoupling: are parts of your program highly coupled? If you made a non-breaking implementation change to one class, would it significantly change the way other parts of the program interact with it? Even large breaking changes to one class should require as few updates to other parts of the code as possible. To decouple code, use abstraction (e.g. abstract classes, interfaces, generics) and design patterns like the Adapter and Strategy patterns.
     - practice
  */
+
+// add time
+// restart

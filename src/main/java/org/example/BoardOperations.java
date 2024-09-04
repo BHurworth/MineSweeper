@@ -83,7 +83,6 @@ public class BoardOperations {
                 currentPiece.visible = true;
                 revealedCellCount[0]++;
             }
-
             return;
         }
 

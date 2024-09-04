@@ -10,7 +10,4 @@ public class GridLabel extends BoardPiece{
     {
         this.visible = true;
     }
-
-
-
 }
