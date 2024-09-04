@@ -8,9 +8,16 @@ public class BoardSettings {
 
     public int numberOfMines = 10;
 
-    public void BoardSettings()
+    public BoardSettings()
     {
 
+    }
+
+    public BoardSettings(int boardWidth, int boardHeight, int numberOfMines)
+    {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.numberOfMines = numberOfMines;
     }
 
     public void getCustomDifficulty()
