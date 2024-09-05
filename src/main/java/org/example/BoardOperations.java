@@ -14,7 +14,7 @@ public class BoardOperations {
         this.boardSettings = settings;
     }
 
-    public boolean removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
+    public int removePiece(int x, int y, ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         BoardPiece removedPiece = board.get(x).get(y);
 
@@ -30,7 +30,7 @@ public class BoardOperations {
             removedPiece.visible = true;
             RevealAllBombs(board);
             System.out.println("\nGame Over!");
-            return true;
+            return 0;
             //System.exit(0);
         }
 
@@ -40,6 +40,7 @@ public class BoardOperations {
             EmptyPiece empty = new EmptyPiece();
             empty.visible = true;
             board.get(x).set(y, empty);
+            return 2;
         }
 
         else
@@ -52,10 +53,14 @@ public class BoardOperations {
             System.out.println("WAS NUMBER");
         }
 
-        numberOfRevealedBlocks++;
         System.out.println("TEST " + revealedCellCount[0]);
-        System.out.println("TEST2 " + numberOfRevealedBlocks);
-        return false;
+        if(revealedCellCount[0] >= ((boardSettings.boardHeight)* boardSettings.boardWidth) - boardSettings.numberOfMines)
+        {
+            System.out.println("You Won!");
+            return 1;
+        }
+
+        return -1;
         //displayBoard();
     }
 
@@ -117,7 +122,7 @@ public class BoardOperations {
         }
     }
 
-    public boolean RemoveASquare(ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
+    public int RemoveASquare(ArrayList<ArrayList<BoardPiece>> board, int[] revealedCellCount)
     {
         int[] input = ReceiveInput();
        return removePiece(input[0],input[1], board, revealedCellCount);
