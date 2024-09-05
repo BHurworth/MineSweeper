@@ -30,12 +30,10 @@ public class BoardOperationsTest {
         Assertions.assertFalse(beforeFlag.contains("(f)"));
 
         boardOperations.flagSquare(3,3, board.board);
+
         String afterFlag  = board.displayBoardCell(3,3);
-
-
         Assertions.assertTrue(afterFlag.contains("(f)"));
     }
-
 
     @Test
     public void CheckVictoryCondition()
@@ -94,8 +92,6 @@ public class BoardOperationsTest {
         }
     }
 }
-
-
 
 // test flag
 // check that if you click a mine you lose
