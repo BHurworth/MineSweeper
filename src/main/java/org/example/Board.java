@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Board {
-    ArrayList<ArrayList<BoardPiece>> board = new ArrayList<ArrayList<BoardPiece>>();
+    public ArrayList<ArrayList<BoardPiece>> board = new ArrayList<ArrayList<BoardPiece>>();
     int[][] eightDirections = new int[][]{{-1,1}, {-1,-1}, {-1,0},{1,0},{1,1}, {1,-1}, {0,1},{0,-1}};
     BoardSettings boardSettings = new BoardSettings();
 
@@ -22,6 +22,12 @@ public class Board {
         initialiseBoard();
         addMines();
         addNumbers();
+    }
+
+    public Board(BoardSettings settings, boolean initialiseOnly)
+    {
+        this.boardSettings = settings;
+        initialiseBoard();
     }
 
     public void addNumbers()
@@ -121,8 +127,15 @@ public class Board {
         }
     }
 
-    public void addMines()
+    public String displayBoardCell(int x, int y)
     {
+        BoardPiece currentPiece = board.get(x).get(y);
+        return currentPiece.displayPiece();
+    }
+
+    public int addMines()
+    {
+        int count = 0;
         Random rand = new Random();
         int height = board.size()-1;
         int width = board.get(0).size()-1;
@@ -139,11 +152,13 @@ public class Board {
             {
                // placedMines.add(newPosition);
                 Mine mine = new Mine();
+                count++;
                 board.get(randX).set(randY, mine);
             }
             else {
                 --i;
             }
         }
+        return count;
     }
 }
