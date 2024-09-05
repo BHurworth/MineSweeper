@@ -1,41 +1,50 @@
 package org.example;
 
 public class MineSweeperGame {
-    int highScore = 0;
-    int numberOfTimesPlayed = 0;
     int[] revealedCellCount =  new int[]{0};
     public Board board = new Board();
+    boolean playing = true;
+    BoardManager boardManager = new BoardManager();
 
     public void StartNewGame(){
-        // initialise board settings
-        // start game
-        InitialiseBoardSettings();
+        InitialiseBoard();
+        board.displayBoard();
 
-        InputMenu inputMenu = new InputMenu();
-        boolean gameOver = false;
+        int gameState = -1;
+        int input = 0;
 
-        while(true)
+        while(playing)
         {
-            gameOver = inputMenu.PlayerInputMenu(board, revealedCellCount);
-            if(gameOver)
-            {
-                InitialiseBoardSettings();
-            }
+            input = InputMenu.PlayerInputMenu();
 
-            else if(revealedCellCount[0] >= ((board.boardSettings.boardHeight)* board.boardSettings.boardWidth) - board.boardSettings.numberOfMines)
+            gameState = boardManager.UpdateBoardState(input, board, revealedCellCount);
+
+            board.displayBoard();
+
+            if(gameState == 0 || gameState == 1)
             {
-                System.out.println("\n\n\nYOU WON!\n\n\n");
-                InitialiseBoardSettings();
+                InitialiseBoard();
             }
         }
-       // numberOfTimesPlayed++;
     }
 
-    public void InitialiseBoardSettings()
+    public void InitialiseBoard()
     {
         revealedCellCount[0] = 0;
-        BoardSettings boardSettings;
-        boardSettings = InputMenu.BoardSettingsInputMenu();
-        board = new Board(boardSettings);
+        BoardSettings settings = InitialiseBoardSettings();
+        board = new Board(settings);
     }
+
+    public BoardSettings InitialiseBoardSettings()
+    {
+        return InputMenu.BoardSettingsInputMenu();
+    }
+
+//    public void InitialiseBoardSettings2()
+//    {
+//
+//        BoardSettings boardSettings;
+//        boardSettings = InputMenu.BoardSettingsInputMenu();
+//        board = new Board(boardSettings);
+//    }
 }
