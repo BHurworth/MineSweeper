@@ -2,13 +2,12 @@ package org.example;
 
 public abstract class BoardPiece {
         int[] position = new int[2];
-        boolean visible = false;
+         public boolean visible = false;
         boolean isFlagged = false;
-        String type ="";
+        public  String type ="";
 
-        abstract void Clicked();
 
-        public void displayPiece(){
+        public String displayPiece(){
                 String outputType = "";
                 if(!visible)
                 {
@@ -31,5 +30,6 @@ public abstract class BoardPiece {
                         }
                         System.out.print( "  " + outputType + "  ");
                 }
+                return outputType;
         };
 }

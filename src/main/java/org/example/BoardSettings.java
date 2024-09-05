@@ -3,8 +3,8 @@ package org.example;
 import java.util.Scanner;
 
 public class BoardSettings {
-    int boardHeight = 8;
-    int boardWidth = 8;
+    public int boardHeight = 8;
+    public int boardWidth = 8;
 
     public int numberOfMines = 10;
 
